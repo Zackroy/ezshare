@@ -4,9 +4,9 @@ import 'package:ezshare/screens/login_screen.dart';
 import 'package:ezshare/screens/registration_screen.dart';
 import 'package:ezshare/screens/chat_screen.dart';
 
-void main() => runApp(FlashChat());
+void main() => runApp(Ezshare());
 
-class FlashChat extends StatelessWidget {
+class Ezshare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
