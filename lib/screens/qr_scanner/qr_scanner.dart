@@ -3,7 +3,6 @@ import 'package:ezshare/screens/qr_scanner/qrscanneroverlay.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ezshare/screens/qr_scanner/foundScreen.dart';
 
-
 class Scanner extends StatefulWidget {
   const Scanner({Key? key}) : super(key: key);
 
@@ -12,51 +11,76 @@ class Scanner extends StatefulWidget {
 }
 
 class _ScannerState extends State<Scanner> {
-  MobileScannerController  cameraController = MobileScannerController();
+  MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
+
+
 
   @override
   void initState() {
-    // TODO: implement initState
-    this._screenWasClosed();
     super.initState();
+    _screenWasClosed();
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black.withOpacity(0.5),
-        appBar: AppBar(
-          backgroundColor: Colors.pinkAccent,
-          title: Text("Scanner", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-          elevation: 0.0,
+      backgroundColor: Colors.black.withOpacity(0.5),
+      appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
+        title: Text(
+          "Scanner",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
-        body: Stack(
-          children: [
-            MobileScanner(
-              allowDuplicates: false,
-              controller: cameraController,
-              onDetect: _foundBarcode,
+        elevation: 0.0,
+        actions: [
+          IconButton(
+            color: Colors.white,
+            icon: ValueListenableBuilder(
+              valueListenable: cameraController.torchState,
+              builder: (context, state, child) {
+                switch (state as TorchState) {
+                  case TorchState.off:
+                    return const Icon(Icons.flash_off, color: Colors.grey);
+                  case TorchState.on:
+                    return const Icon(Icons.flash_on, color: Colors.yellow);
+                }
+              },
             ),
-            QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5))
-          ],
-        )
+            onPressed: () => cameraController.toggleTorch(),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          MobileScanner(
+            allowDuplicates: false,
+            controller: cameraController,
+            onDetect: _foundBarcode,
+          ),
+          QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5)),
+        ],
+      ),
     );
   }
 
-  void _foundBarcode(Barcode barcode, MobileScannerArguments? args){
+  void _foundBarcode(Barcode barcode, MobileScannerArguments? args) {
     print(barcode);
-    if(!_screenOpened){
+    if (!_screenOpened) {
       final String code = barcode.rawValue ?? "___";
-      _screenOpened = false;
-      //here push navigation result page
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> FoundScreen(value: code, screenClose: _screenWasClosed))).then((value) => print(value));
-
-      // builder: builder) => FoundScreen(value: code, screenClose: _screenWasClosed))
+      _screenOpened = true;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              FoundScreen(value: code, screenClose: _screenWasClosed),
+        ),
+      ).then((value) => print(value));
     }
   }
 
-  void _screenWasClosed(){
+  void _screenWasClosed() {
     _screenOpened = false;
   }
 }
