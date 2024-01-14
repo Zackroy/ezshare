@@ -1,4 +1,6 @@
 import 'package:ezshare/screens/download/download.dart';
+import 'package:ezshare/screens/qr_generator/generator.dart';
+import 'package:ezshare/screens/test.dart';
 import 'package:ezshare/screens/upload/upload.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class Ezshare extends StatelessWidget {
           ,
         ),
       ),
-      initialRoute: '/download',
+      initialRoute: '/test',
       routes: {
         '/' : (context) => WelcomeScreen(),
         '/login' : (context) => LoginScreen(),
@@ -34,6 +36,8 @@ class Ezshare extends StatelessWidget {
         '/qr_code' : (context) => Scanner(),
         '/upload' : (context) => Upload(),
         '/download' : (context) => Download(),
+        '/qr_Gen' : (context) => Generation(),
+        '/test' : (context) => test(),
 
 
       },
