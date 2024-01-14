@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "641890214055",
+    "project_id": "ezshare-e344c",
+    "storage_bucket": "ezshare-e344c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641890214055:android:131e7208588ae6c26f7b82",
+        "android_client_info": {
+          "package_name": "com.example.ezshare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnC6cypzXKn6UaVVbvz6Okw9GmMWCDE7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
